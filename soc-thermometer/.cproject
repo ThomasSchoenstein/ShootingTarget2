@@ -155,7 +155,7 @@
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 		</cconfiguration>
 	</storageModule>
-	<storageModule generalProj.esf.protocolIds="com.silabs.sdk.stack.super:2.6.3._-1918374706.com.silabs.stack.ble:2.12.3.0_1775726164" generalProj.esf.protocolNames="ble" moduleId="com.silabs.ss.framework.ide.project.core.cpp" project.generation="108" projectCommon.boardIds="brd4300a:0.0.0" projectCommon.buildArtifactType="EXE" projectCommon.partId="mcu.arm.efr32.bg1.bgm111a256v2" projectCommon.sdkId="com.silabs.sdk.stack.super:2.6.3._-1918374706"/>
+	<storageModule generalProj.esf.protocolIds="com.silabs.sdk.stack.super:2.6.3._-1918374706.com.silabs.stack.ble:2.12.3.0_1775726164" generalProj.esf.protocolNames="ble" moduleId="com.silabs.ss.framework.ide.project.core.cpp" project.generation="112" projectCommon.boardIds="brd4300a:0.0.0" projectCommon.buildArtifactType="EXE" projectCommon.partId="mcu.arm.efr32.bg1.bgm111a256v2" projectCommon.sdkId="com.silabs.sdk.stack.super:2.6.3._-1918374706"/>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="soc-thermometer.com.silabs.ss.framework.ide.project.core.cdt.cdtMbsProjectType.906752362" name="SLS CDT Project" projectType="com.silabs.ss.framework.ide.project.core.cdt.cdtMbsProjectType"/>
 	</storageModule>

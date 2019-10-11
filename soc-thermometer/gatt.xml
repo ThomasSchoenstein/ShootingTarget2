@@ -53,7 +53,7 @@
     <characteristic name="Characteristic" sourceId="custom.type" uuid="13dcbab9-28f4-4b26-9f3d-afafeaa76781">
       <informativeText>Custom characteristic</informativeText>
       <value length="1" type="hex" variable_length="false">0x00</value>
-      <properties indicate="true" indicate_requirement="optional"/>
+      <properties read="true" read_requirement="optional"/>
     </characteristic>
   </service>
   
