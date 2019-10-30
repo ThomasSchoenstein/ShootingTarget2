@@ -5,8 +5,16 @@
  *      Author: jdoe8
  */
 
-#include "headers.h"
+#include "em_system.h"
 #include "em_adc.h"
+#include "em_emu.h"
+#include "em_cmu.h"
+#include "hal-config.h"
+#include "infrastructure.h"
+#include "si7013.h"
+#include "native_gecko.h"
+#include "gatt_db.h"
+
 
 
 void initADC(void){
@@ -31,29 +39,6 @@ void initADC(void){
 
 
 	//ADC_LoadDevinfoCal(ADC0, adcRefVDD, true);   //Function calebrates ADC
-	/*ADC_InitScanInput_TypeDef adcScanInputConfig;
-
-	ADC_InitScan_TypeDef adcScanConfig=ADC_INITSCAN_DEFAULT;  //ADC Scan configuration
-		adcScanConfig.acqTime=adcAcqTime1;
-		adcScanConfig.diff=false;
-		adcScanConfig.fifoOverwrite=false;
-		adcScanConfig.leftAdjust=false;
-		adcScanConfig.prsEnable=false;
-		adcScanConfig.prsSel=adcPRSSELCh0;
-		adcScanConfig.reference=adcRefVDD;
-		adcScanConfig.rep=true;
-		adcScanConfig.resolution=adcRes8Bit;
-		adcScanConfig.scanDmaEm2Wu=true;
-		adcScanConfig.scanInputConfig=adcScanInputConfig;
-
-		//ADC pins for scanning CHANGE TO ACTUAL PINS LATER
-	ADC_ScanSingleEndedInputAdd(&adcScanConfig, adcScanInputGroup0, adcPosSelAPORT1XCH6);   //typedef, ,pin (Page 72 BGM111 dat sheet
-	ADC_ScanSingleEndedInputAdd(&adcScanConfig, adcScanInputGroup1, adcPosSelAPORT1XCH8);   //pin PC8
-	ADC_ScanSingleEndedInputAdd(&adcScanConfig, adcScanInputGroup1, adcPosSelAPORT1XCH10);   //pin PC10
-	ADC_ScanSingleEndedInputAdd(&adcScanConfig, adcScanInputGroup2, adcPosSelAPORT1XCH16);    // PF0
-	ADC_ScanSingleEndedInputAdd(&adcScanConfig, adcScanInputGroup2, adcPosSelAPORT1XCH18);    //PF2
-
-	ADC_InitScan(ADC0,adcScanConfig);*/
 
 	//PINS ARE FOUND ON PAGE 72 OF BGM111 DATA SHEET
 	ADC_InitSingle_TypeDef adcSingleConfig1=ADC_INITSINGLE_DEFAULT;  //initializaion variables for single conversion on Pin PC6
@@ -101,9 +86,9 @@ void initADC(void){
 		adcSingleConfig3.resolution=adcRes8Bit;  //8 bit resolution
 		adcSingleConfig3.singleDmaEm2Wu=true;    //DMA is enabled when in EM2
 
-	ADC_InitSingle(ADC0_BASE, &adcSingleConfig1);  //conversion init for pin C6
-	ADC_InitSingle(ADC0_BASE, &adcSingleConfig2);  //conversion init for pin C8
-	ADC_InitSingle(ADC0_BASE, &adcSingleConfig3);  //conversion init for C10
+	ADC_InitSingle(ADC0, &adcSingleConfig1);  //conversion init for pin C6
+	ADC_InitSingle(ADC0, &adcSingleConfig2);  //conversion init for pin C8
+	ADC_InitSingle(ADC0, &adcSingleConfig3);  //conversion init for C10
 
 
 }

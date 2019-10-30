@@ -19,5 +19,6 @@ extern const struct bg_gattdb_def bg_gattdb_data;
 #define gattdb_device_name                     11
 #define gattdb_temperature_measurement         19
 #define gattdb_ota_control                     26
+#define gattdb_sensor0                         29
 
 #endif

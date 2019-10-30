@@ -50,7 +50,6 @@
 static void initMcu_clocks(void);
 static void initHFXO(void);
 
-
 void initMcu(void)
 {
   // Device errata
@@ -95,8 +94,6 @@ void initMcu(void)
   // been changed by the bootloader to FULL reset.
   RMU->CTRL = (RMU->CTRL & ~_RMU_CTRL_SYSRMODE_MASK) | RMU_CTRL_SYSRMODE_DEFAULT;
 #endif
-
-
 
   TEMPDRV_Init();
 }
@@ -185,4 +182,3 @@ static void initHFXO(void)
   // Set system HFXO frequency
   SystemHFXOClockSet(BSP_CLK_HFXO_FREQ);
 }
-

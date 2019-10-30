@@ -44,5 +44,4 @@ void initBoard(void)
 #endif
   // Enable GPIO clock source
   CMU_ClockEnable(cmuClock_GPIO, true);
-  //Enable ADC
 }
