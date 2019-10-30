@@ -111,11 +111,15 @@ int main(void)
   initBoard();
   // Initialize application
   initApp();
+  //Initialize ADC
+  initADC();
 
   // Initialize stack
   gecko_init(&config);
   // Initialize the Temperature Sensor
   Si7013_Detect(I2C0, SI7021_ADDR, NULL);
+
+  ADC_Start(ADC0, adcStartScan);
 
   while (1) {
     /* Event pointer for handling events */

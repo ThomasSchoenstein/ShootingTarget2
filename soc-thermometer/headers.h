@@ -43,7 +43,8 @@
 #include "i2cspm.h"
 #include "si7013.h"
 #include "tempsens.h"
-
+#include "em_adc.h"
+#include "bgm1_adc.h"
 
 #include "targetFunctions.h"
 

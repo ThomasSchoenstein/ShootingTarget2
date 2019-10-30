@@ -9,7 +9,7 @@
 #define TARGETFUNCTIONS_H_
 
 void sensorRead(void);
-
+void initADC(void);
 
 
 #endif /* TARGETFUNCTIONS_H_ */
