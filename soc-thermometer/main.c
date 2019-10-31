@@ -64,7 +64,7 @@
 #include "si7013.h"
 #include "tempsens.h"
 #include "em_adc.h"
-//#include "bgm1_adc.h"
+
 
 #include "targetFunctions.h"
 
@@ -167,8 +167,6 @@ int main(void)
   // Initialize the Temperature Sensor
   Si7013_Detect(I2C0, SI7021_ADDR, NULL);
 
-  ADC_Start(ADC0, adcStartScan);
-
   while (1) {
     /* Event pointer for handling events */
     struct gecko_cmd_packet* evt;
@@ -220,7 +218,6 @@ int main(void)
       case gecko_evt_hardware_soft_timer_id:
         /* Measure the temperature as defined in the function temperatureMeasure() */
         temperatureMeasure();
-        sensorRead();
         break;
 
       case gecko_evt_le_connection_closed_id:
