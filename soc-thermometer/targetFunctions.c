@@ -15,7 +15,12 @@
 #include "native_gecko.h"
 #include "gatt_db.h"
 
+void initGPIO(void){
+  /* Enable GPIO clock */
+  CMU_ClockEnable(cmuClock_GPIO, true);
 
+  GPIO_PinModeSet(gpioPortA, 0, gpioModePushPull, 1);
+}
 
 void initADC(void){
 	CMU_ClockEnable(cmuClock_ADC0, true);  //enable ADC clock
@@ -116,28 +121,42 @@ void initADC(void){
 		adcSingleConfigPC10.resolution=adcRes8Bit;  //8 bit resolution
 		adcSingleConfigPC10.singleDmaEm2Wu=true;    //DMA is enabled when in EM2
 
-	ADC_InitSingle_TypeDef adcSingleConfigPC11=ADC_INITSINGLE_DEFAULT;  //initializaion variables for single conversion on Pin C11
-		adcSingleConfigPC11.posSel=adcPosSelAPORT1YCH11;       //Positive is Pin C11
-
-		adcSingleConfigPC11.acqTime=adcAcqTime1;   //aquire after 1 clock cycle
-		adcSingleConfigPC11.diff=false;            //single ended input
-		adcSingleConfigPC11.fifoOverwrite=false;   //excess data is thrown out
-		adcSingleConfigPC11.leftAdjust=false;      //right adjusted
-		adcSingleConfigPC11.negSel=adcNegSelVSS;   //Negative select is Vss
-		adcSingleConfigPC11.prsEnable=false;       //prs is disabled
-		adcSingleConfigPC11.prsSel=adcPRSSELCh0;  //prs channel 0
-		adcSingleConfigPC11.reference=adcRefVDD;   //referance is VDD should be ~3V
-		adcSingleConfigPC11.rep=false;              //will not repeat
-		adcSingleConfigPC11.resolution=adcRes8Bit;  //8 bit resolution
-		adcSingleConfigPC11.singleDmaEm2Wu=true;    //DMA is enabled when in EM2
-
 	ADC_InitSingle(ADC0, &adcSingleConfigPC6);  //conversion init for pin C6
 	ADC_InitSingle(ADC0, &adcSingleConfigPC7);  //conversion init for pin C7
 	ADC_InitSingle(ADC0, &adcSingleConfigPC8);  //conversion init for C8
 	ADC_InitSingle(ADC0, &adcSingleConfigPC9);  //conversion init for C9
 	ADC_InitSingle(ADC0, &adcSingleConfigPC10);  //conversion init for C10
-	ADC_InitSingle(ADC0, &adcSingleConfigPC11);  //conversion init for C11
 }
+
+void ADCoutputLED(uint32_t dataIn){
+	//void GPIO_PinOutSet(GPIO_Port_TypeDef port, unsigned int pin)
+	//void GPIO_PinOutClear(GPIO_Port_TypeDef port, unsigned int pin)
+	uint8_t i=0;
+	uint32_t dataCpy;
+	uint32_t dataCpy1;
+
+	dataCpy=dataIn;
+
+	GPIO_PinOutToggle(gpioPortA, 0);
+	USTIMER_DelayIntSafe(1000000); //delays by 1 second
+
+	while(i<32){
+		dataCpy=dataCpy>>i;
+		dataCpy1=dataCpy*0x00000001;
+		if(dataCpy==0){
+			GPIO_PinOutClear(gpioPortA, 0);
+		}
+		else if(dataCpy==1){
+			GPIO_PinOutSet(gpioPortA, 0);
+		}
+		USTIMER_DelayIntSafe(1000000);  //delays by 1 second
+
+		GPIO_PinOutToggle(gpioPortA, 0);
+		USTIMER_DelayIntSafe(1000);  //delays by 1 milisecond
+		i++;
+	}
+}
+
 
 
 void sensorRead(void){
@@ -146,7 +165,7 @@ void sensorRead(void){
 	int32_t ADCdat;     /* Stores the data read from the ADC. */
 	uint32_t rhData = 0;    /* Dummy needed for storing Relative Humidity data. */
 	uint32_t impact;   /* Stores the impact data read from the sensor in the correct format */
-	uint8_t *p = adcTempBuffer; /* Pointer to HTM temperature buffer needed for converting values to bitstream. */
+	uint8_t *p = adcTempBuffer; /* Pointer to ADC buffer needed for converting values to bitstream. */
 	static int32_t DummyValue = 0l;
 
 	/* Convert flags to bitstream and append them in the HTM temperature data buffer (htmTempBuffer) */

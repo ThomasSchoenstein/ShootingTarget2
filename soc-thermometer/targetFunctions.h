@@ -10,6 +10,8 @@
 
 void sensorRead(void);
 void initADC(void);
+void initGPIO(void);
+void ADCoutputLED(uint32_t dataIn);
 
 
 #endif /* TARGETFUNCTIONS_H_ */
